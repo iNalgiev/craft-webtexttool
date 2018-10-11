@@ -11,7 +11,7 @@ namespace inalgiev\webtexttool\migrations;
 
 use Craft;
 use craft\config\DbConfig;
-use craft\db\migration;
+use craft\db\Migration;
 
 /**
  * Class Install
