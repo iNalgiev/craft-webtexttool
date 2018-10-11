@@ -70,14 +70,14 @@
                     <div class="sk-circle12 sk-child"></div>
                 </div>
 
-                <div class="wtt-tbl-cell wtt-seo-cell" ng-show="showScore" style="padding-left: 19%;">
+                <div class="wtt-tbl-cell wtt-seo-cell" ng-show="showScore">
                     <div ng-class="seoClass" id="wtt-page-score" title="{[seoScoreTag]}">
                         <span class="page-score-text">{[seoScore | number: 0]}%</span>
                         <canvas tc-chartjs-doughnut chart-data="seoPageScoreData"
                                 chart-options="pageScoreChartOptions" width="110" height="110"></canvas>
                     </div>
                 </div>
-                <div class="wtt-tbl-cell" ng-show="showScore">
+                <div class="wtt-tbl-cell wtt-content-cell" ng-show="showScore">
                     <div ng-class="contentClass" id="wtt-content-score" title="{[contentScoreTag]}">
                         <span class="page-score-text">{[contentScore | number: 0]}%</span>
                         <canvas tc-chartjs-doughnut chart-data="contentPageScoreData"

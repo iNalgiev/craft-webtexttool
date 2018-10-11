@@ -730,21 +730,33 @@ table {
 .wtt-page-score-area {
     min-height: 110px;
     width: 100%;
-    /*padding-left: 19% !important;*/
 }
 
 .wtt-page-score-area > .wtt-seo-cell {
-    padding-left: 19%;
+    padding-left: 11%;
+}
+
+.wtt-page-score-area > .wtt-content-cell {
+    width: 45%;
 }
 
 .wtt-tbl-cell {
     display: table-cell;
     vertical-align: bottom;
     padding-bottom: 5px !important;
-    width: 66%;
 }
 
-@media (max-width: 1920px) {
+@media (max-width: 1000px) {
+    .wtt-page-score-area > .wtt-seo-cell {
+        padding-left: 21%;
+    }
+
+    .wtt-page-score-area > .wtt-content-cell {
+        width: 31%;
+    }
+}
+
+/*@media (max-width: 1920px) {
     .wtt-page-score-area > .wtt-seo-cell {
         padding-left: 17% !important;
     }
@@ -782,15 +794,13 @@ table {
     .wtt-tbl-cell {
         width: 67%;
     }
-}
+}*/
 
 .wtt-page-score-area .wtt-score-error {
     text-align: center;
     vertical-align: middle;
     color: #a94442;
 }
-
-
 
 .page-score {
     width: 110px;
