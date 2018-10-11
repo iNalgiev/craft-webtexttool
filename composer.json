@@ -1,0 +1,42 @@
+{
+    "name": "inalgiev/craft-webtexttool",
+    "description": "Webtexttool is the easiest way to make your website content SEO proof, resulting in higher search engine rankings and more traffic to your website. With webtexttool everyone can create great content and make sure it's SEO proof at the same time.",
+    "type": "craft-plugin",
+    "version": "1.0.0",
+    "keywords": [
+        "craft",
+        "cms",
+        "craftcms",
+        "craft-plugin",
+        "craft-webtexttool",
+		"webtexttool",
+		"seo",
+		"realtime",
+		"text-tool"
+    ],
+    "support": {
+        "docs": "https://github.com/iNalgiev/craft-webtexttool/README.md",
+        "issues": "https://github.com/iNalgiev/craft-webtexttool/issues"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Israpil Nalgiev",
+            "homepage": "https://webtexttool.com"
+        }
+    ],
+    "require": {
+        "craftcms/cms": "^3.0.0"
+    },
+    "autoload": {
+        "psr-4": {
+          "inalgiev\\webtexttool\\": "src/"
+        }
+    },
+    "extra": {
+        "name": "Webtexttool",
+        "handle": "webtexttool",
+        "changelogUrl": "https://github.com/iNalgiev/craft-webtexttool/CHANGELOG.md",
+        "class": "inalgiev\\webtexttool\\Webtexttool"
+    }
+}

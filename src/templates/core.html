@@ -1,0 +1,32 @@
+{% set descriptionFieldJS %}
+$(function($j) {
+$j('div[id="title-field"]').after(
+'<div id="descriptiondiv">' +
+    '<div class="desc-heading">' +
+        '<label for="wtt_description">' +
+            'Page description' +
+            '</label>' +
+        '<button type="button" class="wtt-btn-info-d" data-toggle="popover" data-trigger="focus" data-placement="top" data-content="This is the summary of your page that will be shown in the search results and what a potential visitor of your page will see. So it’s important to create a catchy description of your page."><i class="fa fa-question-circle"></i></button>' +
+        '</div>' +
+    '<textarea id="wtt_description" placeholder="Page Description" name="wtt_description">' + '{{ record ? record['wttDescription'] : null }}' + '</textarea>' +
+    '</div>'
+);
+});
+
+{% endset %}
+
+{% includeJs descriptionFieldJS %}
+
+<div ng-app="wttApp" ng-controller="editPageController"
+     cg-busy="{promise:loadingPromise,message:promiseMessage,backdrop:true}">
+
+    {% include "webtexttool/header.html" %}
+    {% include "webtexttool/warning.html" %}
+    {% include "webtexttool/research.html" %}
+    {% include "webtexttool/suggestions.html" %}
+
+</div>
+
+<input type="hidden" id="wtt-record-id" name="recordId" value="{{ record ? record['id'] : null }}"/>
+<input type="hidden" id="wtt-language-code-field" name="wtt_language" value="{{ record ? record['wttLanguage'] : null }}"/>
+<ul id="wttSynonymTags" style="list-style:none;"></ul>
