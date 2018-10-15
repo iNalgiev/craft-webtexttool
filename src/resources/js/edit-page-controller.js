@@ -30,6 +30,12 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
             }
         }
 
+        var metaDescriptionField = document.getElementById('wtt_description');
+
+        if(metaDescriptionField !== null && wtt_globals.record !== "") {
+            metaDescriptionField.value = wtt_globals.record.wttDescription;
+        }
+
         $scope.promiseMessage = "Loading...";
 
         $scope.loadingPromise = httpService.getData(WttApiBaseUrl + "user/authenticated").then(function (result) {
@@ -66,7 +72,7 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
                     $scope.htmlPopoverS = $sce.trustAsHtml('<p class="tooltip-content">While writing, multiple suggestions appear here. These suggestions tell you how you can improve your text for the search engines, according to the latest SEO rules, but also how to structure your text for your readers. Following these suggestions, will raise your optimization score!</p>');
                     $scope.htmlPopoverP = $sce.trustAsHtml('<p class="tooltip-content">Here you can set max 3 alternative keywords that support the main keyword.</p>');
 
-                    var permaLink = Craft ? Craft.livePreview.previewUrl : "";
+                    var permaLink = Craft.livePreview ? Craft.livePreview.previewUrl : "";
                     var slugValue = document.getElementById("slug");
 
                     if (permaLink !== "") {
@@ -238,19 +244,23 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
                             }
 
                             getUrlWithToken().then(function(response) {
-                                getLiveContent(response.url).then(function(response) {
-                                    var mainRegExp = new RegExp(/^.*?<main[^>]*>(.*?)<\/main>.*?$/);
+                                if(response.url !== "") {
+                                    getLiveContent(response.url).then(function(response) {
+                                        var mainRegExp = new RegExp(/^.*?<main[^>]*>(.*?)<\/main>.*?$/);
 
-                                    if(mainRegExp.test(replaceLineBreaks(response))) {
-                                        $scope.HtmlContent = replaceLineBreaks(response).replace(mainRegExp, '$1');
-                                    } else {
-                                        $scope.HtmlContent = replaceLineBreaks(response).replace(/^.*?<body[^>]*>(.*?)<\/body>.*?$/g, '$1');
-                                    }
+                                        if(mainRegExp.test(replaceLineBreaks(response))) {
+                                            $scope.HtmlContent = replaceLineBreaks(response).replace(mainRegExp, '$1');
+                                        } else {
+                                            $scope.HtmlContent = replaceLineBreaks(response).replace(/^.*?<body[^>]*>(.*?)<\/body>.*?$/g, '$1');
+                                        }
 
-                                    getHtmlAndRunSuggestions();
-                                }, function(result) {
-                                    toastr.warning("Something went wrong while fetching the page!");
-                                });
+                                        getHtmlAndRunSuggestions();
+                                    }, function() {
+                                        toastr.warning("Something went wrong while fetching the page!");
+                                    });
+                                } else if(response.url === "") {
+                                    toastr.warning("Entry has no preview url!");
+                                }
                             }, function(result) {
                                 toastr.warning(result, "Something went wrong!");
                             });
@@ -728,17 +738,21 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
                             }
 
                             getUrlWithToken().then(function(response) {
-                                getLiveContent(response.url).then(function(response) {
-                                    var mainRegExp = new RegExp(/^.*?<main[^>]*>(.*?)<\/main>.*?$/);
+                                if(response.url !== "") {
+                                    getLiveContent(response.url).then(function (response) {
+                                        var mainRegExp = new RegExp(/^.*?<main[^>]*>(.*?)<\/main>.*?$/);
 
-                                    if(mainRegExp.test(replaceLineBreaks(response))) {
-                                        $scope.HtmlContent = replaceLineBreaks(response).replace(mainRegExp, '$1');
-                                    } else {
-                                        $scope.HtmlContent = replaceLineBreaks(response).replace(/^.*?<body[^>]*>(.*?)<\/body>.*?$/g, '$1');
-                                    }
+                                        if (mainRegExp.test(replaceLineBreaks(response))) {
+                                            $scope.HtmlContent = replaceLineBreaks(response).replace(mainRegExp, '$1');
+                                        } else {
+                                            $scope.HtmlContent = replaceLineBreaks(response).replace(/^.*?<body[^>]*>(.*?)<\/body>.*?$/g, '$1');
+                                        }
 
-                                    getHtmlAndRunSuggestions();
-                                });
+                                        getHtmlAndRunSuggestions();
+                                    });
+                                } else if(response.url === "") {
+                                    toastr.warning("Entry has no preview url!")
+                                }
                             });
 
                             $timeout(function () {

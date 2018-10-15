@@ -56,3 +56,4 @@ Yes, we have. We offer different subscriptions (Personal, Business, Enterprise).
 Yes, of course! If you have any questions, please don’t hesitate to [contact us](https://www.webtexttool.com/about-webtexttool/contact/). We love to hear from you and will try to solve any issues asap.
 
 ---
+*This is the Craft 3.x version, for the Craft 2.x version see [link](https://github.com/iNalgiev/webtexttool)*.

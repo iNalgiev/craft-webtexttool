@@ -15,6 +15,7 @@ use craft\helpers\UrlHelper;
 use inalgiev\webtexttool\Webtexttool;
 use inalgiev\webtexttool\models\CoreModel;
 use yii\web\Response;
+use yii\base\Exception;
 
 /**
  * Class WebtexttoolController
@@ -25,21 +26,30 @@ class CoreController extends Controller
     /**
      * @return \yii\web\Response
      * @throws \yii\web\BadRequestHttpException
+     * @throws Exception
      */
     public function actionGetUrlWithToken()
     {
         $this->requireAcceptsJson();
         $request = Craft::$app->getRequest();
 
-        $params = array('entryId' => $request->getBodyParam('entryId'), 'locale' => $request->getBodyParam('locale'));
-
-        $status = array('status' => $request->getBodyParam('status'));
+        $params = ['entryId' => $request->getBodyParam('entryId')];
+        $status = ['status' => $request->getBodyParam('status')];
+        $entryUrl = $request->getBodyParam('url');
 
         if($status['status'] !== "live") {
             Craft::$app->getTokens()->deleteExpiredTokens();
 
-            $token = Craft::$app->getTokens()->createToken(array('action' => 'entries/viewSharedEntry', 'params' => $params));
-            $url = UrlHelper::urlWithToken($request->getBodyParam('url'), $token);
+            $token = Craft::$app->getTokens()->createToken([
+                'entries/view-shared-entry',
+                $params
+            ]);
+
+            if ($token === false) {
+                throw new Exception('There was a problem generating the token.');
+            }
+
+            $url = UrlHelper::urlWithToken($entryUrl, $token);
         } else {
             $url = $request->getBodyParam('url');
         }

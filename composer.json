@@ -12,10 +12,11 @@
 		"webtexttool",
 		"seo",
 		"realtime",
-		"text-tool"
+		"text-tool",
+        "content"
     ],
     "support": {
-        "docs": "https://github.com/iNalgiev/craft-webtexttool/README.md",
+        "docs": "https://github.com/iNalgiev/craft-webtexttool/blob/master/README.md",
         "issues": "https://github.com/iNalgiev/craft-webtexttool/issues"
     },
     "license": "MIT",
@@ -36,7 +37,7 @@
     "extra": {
         "name": "Webtexttool",
         "handle": "webtexttool",
-        "changelogUrl": "https://github.com/iNalgiev/craft-webtexttool/CHANGELOG.md",
+        "changelogUrl": "https://github.com/iNalgiev/craft-webtexttool/blob/master/CHANGELOG.md",
         "class": "inalgiev\\webtexttool\\Webtexttool"
     }
 }
