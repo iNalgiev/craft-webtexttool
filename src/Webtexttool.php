@@ -67,7 +67,7 @@ class Webtexttool extends Plugin
      *
      * @var string
      */
-    public $schemaVersion = '1.0.0';
+    public $schemaVersion = '1.0.1';
 
     public $hasCpSettings = false;
 
@@ -146,19 +146,6 @@ JS;
                 Craft::$app->runAction('webtexttool/core/save-record');
             }
         );
-
-        // Add new sections to the Control Panel
-        /*Event::on(
-            Cp::class,
-            Cp::EVENT_REGISTER_CP_NAV_ITEMS,
-            function(RegisterCpNavItemsEvent $event) {
-                $event->navItems[] = [
-                    'url' => 'webtexttool',
-                    'label' => 'Webtexttool',
-                    'icon' => '@inalgiev/webtexttool/icon.svg',
-                ];
-            }
-        );*/
 
         Craft::info(Craft::t('webtexttool', '{name} plugin loaded', ['name' => $this->name]),
             __METHOD__
