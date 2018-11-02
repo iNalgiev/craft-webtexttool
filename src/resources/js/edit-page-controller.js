@@ -1358,14 +1358,14 @@ app.directive('enforceMaxTags', function () {
     }
 });
 
-app.directive("wttContentQuality", function () {
+app.directive("wttContentQuality", ["stateService", function (stateService) {
     return {
         template: wtt_globals.contentQualityTemplate,
         link: function (scope) {
             scope.data = stateService.data;
         }
     };
-});
+}]);
 
 app.filter("boolText", function() {
     return function (boolValue) {

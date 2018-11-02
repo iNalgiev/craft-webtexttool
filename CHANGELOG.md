@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2 - 2018-11-2
+### Fixed
+- Fixed 'stateService is not defined' error
+
 ## 1.0.1 - 2018-10-19
 ### Added
 - Added support for advanced language level for Content Quality module
