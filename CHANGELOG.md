@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.0.3 - 2018-11-28
+### Changed
+- Content Quality module has been updated
+    - moved words + suggestions to sidebar instead of left slideout sidebar
+
+### Added
+- Added new resources + labels
+
 ## 1.0.2 - 2018-11-2
 ### Fixed
 - Fixed 'stateService is not defined' error
