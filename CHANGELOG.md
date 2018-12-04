@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.4 - 2018-12-04
+### Fixed
+- Fixed Uncaught TypeError caused by multiple jQuery libraries
+- Removed unnecessary console error logs
+
 ## 1.0.3 - 2018-11-28
 ### Changed
 - Content Quality module has been updated

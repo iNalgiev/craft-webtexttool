@@ -30,11 +30,19 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
             }
         }
 
-        var metaDescriptionField = document.getElementById('wtt_description');
+        $j(document).ready(function(){
+            var metaDescriptionField = document.getElementById('wtt_description');
 
-        if(metaDescriptionField !== null && wtt_globals.record !== "") {
-            metaDescriptionField.value = wtt_globals.record.wttDescription;
-        }
+            if(metaDescriptionField !== null && wtt_globals.record !== "") {
+                metaDescriptionField.value = wtt_globals.record.wttDescription;
+            }
+
+            $j('.wtt-btn-info-d').popover();
+
+            $j('#wtt-keyword').keypress(function (e) {
+                if (e.which === 13) e.preventDefault();
+            });
+        });
 
         $scope.promiseMessage = "Loading...";
 
@@ -225,7 +233,7 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
                     $scope.useMyKeyword = function () {
                         $scope.errorMsg = null;
 
-                        if ($scope.pageHasKeyword()) {
+                        if (pageHasKeyword()) {
                             if (!validateKeyword()) {
                                 toastr.warning($scope.errorMsg, {
                                     closeButton: true,
@@ -268,8 +276,6 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
                             $timeout(function () {
                                 $scope.isCollapsed = true;
                             }, 500);
-                        } else {
-                            console.error("No keyword defined");
                         }
                     };
 
@@ -341,8 +347,7 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
                             // update page settings QualityLevels
                             $scope.QualityLevels = $scope.settings;
 
-                            //Save content quality settings to wp database
-
+                            //Save content quality settings to database
                             saveContentQualitySettings($scope.QualityLevels);
 
                             analyzeContentQuality(20);
@@ -396,7 +401,7 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
 
                             renderSuggestions(response.Suggestions);
 
-                            //Save content quality suggestions to database with ajax call
+                            //Save content quality suggestions to database
                             saveContentQualitySuggestions(response);
 
                             // update run date
@@ -667,7 +672,7 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
                         return userInfo.Credits > 0;
                     }
 
-                    $scope.pageHasKeyword = function () {
+                    var pageHasKeyword = function () {
                         return getContent('wtt-keyword').length != 0;
                     };
 
@@ -701,7 +706,7 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
                     if (!entryId) {
                         $j("input#wtt-keyword").keyup(function () {
                             $j(this).val('');
-                            toastr.warning('Save the entry before entering a keyword!', {
+                            toastr.warning('Save the entry once before entering a keyword!', {
                                 closeButton: true,
                                 timeOut: 10000,
                                 extendedTimeOut: 0
@@ -712,7 +717,7 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
                     $j("textarea#wtt_description").keyup(function () {
                         if (!entryId) {
                             $j(this).val('');
-                            toastr.warning('Save the entry before entering a page description!', {
+                            toastr.warning('Save the entry once before entering a page description!', {
                                 closeButton: true,
                                 timeOut: 10000,
                                 extendedTimeOut: 0
@@ -727,7 +732,7 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
                     });
 
                     $scope.useKeyword = function (keyword) {
-                        if ($scope.pageHasKeyword()) {
+                        if (pageHasKeyword()) {
                             $j("#wtt-keyword").prop('value', keyword.Keyword);
 
                             $scope.Keyword = keyword.Keyword;
