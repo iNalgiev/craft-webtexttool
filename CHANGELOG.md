@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.5 - 2018-12-10
+### Fixed
+- Fixed SQLSTATE[23000]: Integrity constraint violation
+
 ## 1.0.4 - 2018-12-04
 ### Fixed
 - Fixed Uncaught TypeError caused by multiple jQuery libraries

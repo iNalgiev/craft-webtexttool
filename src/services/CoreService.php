@@ -66,28 +66,14 @@ class CoreService extends Component
             if (!$wttCoreRecord) {
                 $wttCoreRecord = new CoreRecord();
             }
-        }
-/*
-        $attributes = array(
-            'entryId' => $coreModel->entryId,
-            'wttKeywords' => $coreModel->wttKeywords,
-            'wttDescription' => $coreModel->wttDescription,
-            'wttLanguage' => $coreModel->wttLanguage,
-            'wttSynonyms' => $coreModel->wttSynonyms,
-            'wttContentQualitySettings' => $coreModel->wttContentQualitySettings,
-            'wttContentQualitySuggestions' => $coreModel->wttContentQualitySuggestions
-        );
 
-        foreach ($attributes as $k => $v) {
-            $wttCoreRecord->setAttribute($k, $v);
-        }*/
+            $wttCoreRecord->setAttributes($coreModel->getAttributes(), false);
 
-        $wttCoreRecord->setAttributes($coreModel->getAttributes(), false);
-
-        if($wttCoreRecord->save()) {
-            return true;
-        } else {
-            return false;
+            if ($wttCoreRecord->save()) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }

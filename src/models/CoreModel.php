@@ -52,6 +52,7 @@ class CoreModel extends Model
     public function rules() {
         return [
             ['entryId', 'integer'],
+            ['entryId', 'required'],
             ['wttKeywords', 'string'],
             ['wttDescription', 'string'],
             ['wttLanguage', 'string'],
