@@ -112,20 +112,22 @@ class CoreController extends Controller
     /**
      * Intercept the Entry save data
      *
+     * @param $attr array The base class Event.
      * @throws \yii\web\BadRequestHttpException
      */
-    public function actionSaveRecord()
+    public function actionSaveRecord($attr)
     {
         $this->requirePostRequest();
         $request = Craft::$app->getRequest();
+        $entryId = $attr->sender->attributes['id'] ? $attr->sender->attributes['id'] : $request->getBodyParam('entryId');
 
-        if ($id = $request->getBodyParam('entryId')) {
-            $model = Webtexttool::getInstance()->CoreService->getCoreData($id);
+        if ($entryId) {
+            $model = Webtexttool::getInstance()->CoreService->getCoreData($entryId);
         } else {
             $model = new CoreModel();
         }
 
-        $model->entryId = $request->getBodyParam('entryId');
+        $model->entryId = $entryId;
         $model->wttKeywords = $request->getBodyParam('wtt_keyword');
         $model->wttDescription = $request->getBodyParam('wtt_description');
         $model->wttLanguage = $request->getBodyParam('wtt_language');

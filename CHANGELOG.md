@@ -1,4 +1,7 @@
 # Changelog
+## 1.0.6 - 2018-12-13
+### Fixed
+- Saving wtt data for new entries
 
 ## 1.0.5 - 2018-12-10
 ### Fixed

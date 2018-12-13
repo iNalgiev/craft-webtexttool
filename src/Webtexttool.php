@@ -141,14 +141,15 @@ JS;
         });
 
         Event::on(
-            Entry::class,
-            Entry::EVENT_BEFORE_UPDATE, function() {
-                Craft::$app->runAction('webtexttool/core/save-record');
+            Entry::class,Entry::EVENT_AFTER_INSERT, function(Event $event) {
+                    Craft::$app->runAction('webtexttool/core/save-record', array('attr' => $event));
             }
         );
 
-        Craft::info(Craft::t('webtexttool', '{name} plugin loaded', ['name' => $this->name]),
-            __METHOD__
+        Event::on(
+            Entry::class,Entry::EVENT_AFTER_UPDATE, function(Event $event) {
+                Craft::$app->runAction('webtexttool/core/save-record', array('attr' => $event));
+            }
         );
     }
 

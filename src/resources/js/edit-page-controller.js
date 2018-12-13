@@ -233,7 +233,7 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
                     $scope.useMyKeyword = function () {
                         $scope.errorMsg = null;
 
-                        if (pageHasKeyword()) {
+                        if (pageHasKeyword() && entryId) {
                             if (!validateKeyword()) {
                                 toastr.warning($scope.errorMsg, {
                                     closeButton: true,
@@ -276,6 +276,11 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
                             $timeout(function () {
                                 $scope.isCollapsed = true;
                             }, 500);
+                        } else {
+                            toastr.warning("Please add a keyword or save the entry before running SEO suggestions.", {
+                                closeButton: true,
+                                timeOut: 6000
+                            });
                         }
                     };
 
@@ -673,15 +678,13 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
                     }
 
                     var pageHasKeyword = function () {
-                        return getContent('wtt-keyword').length != 0;
+                        return getContent('wtt-keyword').length !== 0;
                     };
 
-                    var inputKeyword = document.getElementById('wtt-keyword');
+                    var inputKeyword = getContent('wtt-keyword');
 
-                    if (inputKeyword.length != 0) {
+                    if (pageHasKeyword()) {
                         $scope.useMyKeyword();
-                    } else {
-                        return;
                     }
 
                     $j("div#tab1").contents().find("div").focus(function () {
@@ -703,31 +706,11 @@ app.controller("editPageController", ['$scope', '$http', '$q', 'stateService', '
                         }
                     });
 
-                    if (!entryId) {
-                        $j("input#wtt-keyword").keyup(function () {
-                            $j(this).val('');
-                            toastr.warning('Save the entry once before entering a keyword!', {
-                                closeButton: true,
-                                timeOut: 10000,
-                                extendedTimeOut: 0
-                            });
-                        })
-                    }
-
                     $j("textarea#wtt_description").keyup(function () {
-                        if (!entryId) {
-                            $j(this).val('');
-                            toastr.warning('Save the entry once before entering a page description!', {
-                                closeButton: true,
-                                timeOut: 10000,
-                                extendedTimeOut: 0
-                            });
-                        } else {
-                            $scope.Description = $j(this).val();
+                        $scope.Description = $j(this).val();
 
-                            if ($scope.Description != null) {
-                                $scope.updateSuggestions();
-                            }
+                        if ($scope.Description != null) {
+                            $scope.updateSuggestions();
                         }
                     });
 
