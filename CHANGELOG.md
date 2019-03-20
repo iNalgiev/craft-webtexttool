@@ -1,4 +1,8 @@
 # Changelog
+## 1.0.7 - 2019-03-20
+### Fixed
+- includeJs is deprecated
+
 ## 1.0.6 - 2018-12-13
 ### Fixed
 - Saving wtt data for new entries

@@ -2,7 +2,7 @@
     "name": "inalgiev/craft-webtexttool",
     "description": "Webtexttool is the easiest way to make your website content SEO proof, resulting in higher search engine rankings and more traffic to your website. With webtexttool everyone can create great content and make sure it's SEO proof at the same time.",
     "type": "craft-plugin",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "keywords": [
         "craft",
         "cms",
