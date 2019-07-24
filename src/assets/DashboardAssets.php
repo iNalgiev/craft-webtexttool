@@ -1,10 +1,10 @@
 <?php
 /**
- * Webtexttool plugin for Craft CMS
+ * Textmetrics plugin for Craft CMS
  *
  * @author    Israpil Nalgiev
- * @link      https://www.webtexttool.com/
- * @copyright Copyright (c) 2018 Israpil Nalgiev
+ * @link      https://www.textmetrics.com/
+ * @copyright Copyright (c) 2019 Textmetrics
  */
 namespace inalgiev\webtexttool\assets;
 
@@ -59,7 +59,7 @@ JS;
         $data = [
             'accountTemplate' => \Craft::$app->getView()->renderTemplate('webtexttool/account'),
             'loginTemplate' => \Craft::$app->getView()->renderTemplate('webtexttool/login'),
-            'wttApiBaseUrl' => "https://api.webtexttool.com/",
+            'wttApiBaseUrl' => "https://api.textmetrics.com/",
             'currentUserId' => $currentUser->id,
             'userData' => $userData,
             'wttApiKey' => $wttConfig ? $wttConfig['wttApiKey'] : '',

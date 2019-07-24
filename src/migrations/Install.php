@@ -1,10 +1,10 @@
 <?php
 /**
- * Webtexttool plugin for Craft CMS
+ * Textmetrics plugin for Craft CMS
  *
  * @author    Israpil Nalgiev
- * @link      https://www.webtexttool.com/
- * @copyright Copyright (c) 2018 Israpil Nalgiev
+ * @link      https://www.textmetrics.com/
+ * @copyright Copyright (c) 2019 Textmetrics
  */
 
 namespace inalgiev\webtexttool\migrations;
@@ -94,7 +94,7 @@ class Install extends Migration {
                     'wttLanguage' => $this->string()->defaultValue(''),
                     'wttSynonyms' => $this->text(),
                     'wttContentQualitySettings' => $this->text(),
-                    'wttContentQualitySuggestions' => $this->text(),
+                    'wttContentQualitySuggestions' => $this->mediumText(),
                 ]
             );
         }

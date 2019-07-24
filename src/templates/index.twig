@@ -1,5 +1,5 @@
 {% extends "_layouts/cp" %}
-{% set title = "Webtexttool Dashboard v" ~ craft.app.plugins.getPlugin('webtexttool').getVersion() | t %}
+{% set title = craft.app.plugins.getPlugin('webtexttool').name ~ " Dashboard v" ~ craft.app.plugins.getPlugin('webtexttool').getVersion() | t %}
 
 {% block content %}
     <div ng-app="wttDashboard" ng-controller="appController">

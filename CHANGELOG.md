@@ -1,4 +1,14 @@
 # Changelog
+## 1.1.0 - 2019-07-24
+### Changes
+- Webtexttool is now Textmetrics (read more about the change [here](https://www.textmetrics.com/webtexttool-is-now-textmetrics/))
+    - Plugin name changed
+    - Updated UI + logo
+### Added
+- Migration to database column type to handle size of CQ suggestions
+### Fixed
+- Craft CMS 3.2 live preview 
+
 ## 1.0.7 - 2019-03-20
 ### Fixed
 - includeJs is deprecated

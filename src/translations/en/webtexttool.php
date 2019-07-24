@@ -1,9 +1,10 @@
 <?php
 /**
- * Webtexttool plugin for Craft CMS 3.x
- **
- * @link      https://webtexttool.com
- * @copyright Copyright (c) 2018 Israpil Nalgiev
+ * Textmetrics plugin for Craft CMS
+ *
+ * @author    Israpil Nalgiev
+ * @link      https://www.textmetrics.com/
+ * @copyright Copyright (c) 2019 Textmetrics
  */
 
 /**

@@ -1,14 +1,13 @@
 {% set baseAssetsUrl = view.getAssetManager().getPublishedUrl('@inalgiev/webtexttool/resources/img/', true) %}
 
 <div ng-hide="auth" ng-cloak>
-    <img class="webtexttool-logo" src="{{ baseAssetsUrl ~ '/wtt_logo.png' }}"
-         alt="Webtexttool"/>
+    <img class="webtexttool-logo" src="{{ baseAssetsUrl ~ '/tm_logo.png' }}" width="175"
+         alt="textmetrics-logo"/>
 
-    <p class="wtt-description">Use your webtexttool account credentials to log in the form below. <br/>
-        Please note
-        that these are not your CraftCMS username and password. <br/><br/>
+    <p class="wtt-description">Use your {{craft.app.plugins.getPlugin('webtexttool').name}} account credentials to log in the form below. <br/>
+        Please note that these are not your Craft CMS username and password. <br/><br/>
         If you don't have an account yet, you can easily create one for free <a
-                href="https://app.webtexttool.com/#/register-free" target="_blank"><strong>here</strong></a>.</p>
+                href="https://app.textmetrics.com/#/register-free" target="_blank"><strong>here</strong></a>.</p>
 
     <div ng-if="error != null" class="alert alert-danger" role="alert">
         <strong>{[error]}</strong>

@@ -1,10 +1,10 @@
 <?php
 /**
- * Webtexttool plugin for Craft CMS
+ * Textmetrics plugin for Craft CMS
  *
  * @author    Israpil Nalgiev
- * @link      https://www.webtexttool.com/
- * @copyright Copyright (c) 2018 Israpil Nalgiev
+ * @link      https://www.textmetrics.com/
+ * @copyright Copyright (c) 2019 Textmetrics
  */
 
 namespace inalgiev\webtexttool\controllers;
@@ -16,6 +16,7 @@ use inalgiev\webtexttool\Webtexttool;
 use inalgiev\webtexttool\models\CoreModel;
 use yii\web\Response;
 use yii\base\Exception;
+use yii\web\ServerErrorHttpException;
 
 /**
  * Class WebtexttoolController
@@ -57,6 +58,49 @@ class CoreController extends Controller
         if($request->getAcceptsJson()) {
             return $this->asJson(['url' => $url]);
         }
+    }
+
+    /**
+     * @return \yii\web\Response
+     * @throws \yii\web\BadRequestHttpException
+     * @throws Exception
+     */
+    public function actionGetPreviewToken()
+    {
+        $request = Craft::$app->getRequest();
+        $elementType = $request->getRequiredBodyParam('elementType');
+        $sourceId = $request->getRequiredBodyParam('sourceId');
+        $siteId = $request->getRequiredBodyParam('siteId');
+        $draftId = $request->getBodyParam('draftId');
+        $revisionId = $request->getBodyParam('revisionId');
+
+        if ($draftId) {
+            $this->requireAuthorization('previewDraft:' . $draftId);
+        } else if ($revisionId) {
+            $this->requireAuthorization('previewRevision:' . $revisionId);
+        } else {
+            $this->requireAuthorization('previewElement:' . $sourceId);
+        }
+
+        // Create a 24 hour token
+        $route = [
+            'preview/preview', [
+                'elementType' => $elementType,
+                'sourceId' => (int)$sourceId,
+                'siteId' => (int)$siteId,
+                'draftId' => (int)$draftId ?: null,
+                'revisionId' => (int)$revisionId ?: null,
+            ]
+        ];
+
+        $expiryDate = (new \DateTime())->add(new \DateInterval('P1D'));
+        $token = Craft::$app->getTokens()->createToken($route, null, $expiryDate);
+
+        if (!$token) {
+            throw new ServerErrorHttpException(Craft::t('app', 'Could not create a preview token.'));
+        }
+
+        return $this->asJson(compact('token'));
     }
 
     /**

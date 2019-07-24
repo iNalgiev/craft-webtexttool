@@ -1,13 +1,13 @@
 <?php
 /**
- * Webtexttool plugin for Craft CMS 3.x
+ * Textmetrics plugin for Craft CMS 3
  *
- * Webtexttool is the easiest way to make your website content SEO proof, resulting in higher search engine rankings
- * and more traffic to your website. With webtexttool everyone can create great content
+ * Textmetrics is the easiest way to make your website content SEO proof, resulting in higher search engine rankings
+ * and more traffic to your website. With Textmetrics everyone can create great content
  * and make sure it's SEO proof at the same time.
  *
- * @link      https://webtexttool.com
- * @copyright Copyright (c) 2018 Israpil Nalgiev
+ * @link      https://textmetrics.com
+ * @copyright Copyright (c) 2019 Textmetrics
  */
 
 namespace inalgiev\webtexttool;
@@ -67,7 +67,7 @@ class Webtexttool extends Plugin
      *
      * @var string
      */
-    public $schemaVersion = '1.0.2';
+    public $schemaVersion = '1.0.3';
 
     public $hasCpSettings = false;
 
@@ -93,6 +93,7 @@ class Webtexttool extends Plugin
         parent::init();
 
         self::$plugin = $this;
+        self::$plugin->name = 'Textmetrics';
 
         $this->setComponents([
             'UserService' => UserService::class,
@@ -163,16 +164,18 @@ JS;
             'entryId' => $entry->id,
             'record' => $record,
             'synonyms' => Json::decode($record ? $record->wttSynonyms : ""),
-            'wttApiBaseUrl' => "https://api.webtexttool.com/",
+            'wttApiBaseUrl' => "https://api.textmetrics.com/",
             'locale' => Craft::$app->getLocale()->id,
             'userData' => $userData,
             'wttApiKey' => $wttConfig ? $wttConfig['wttApiKey'] : '',
             'permaLink' => $entry ? $entry->getUrl() : "",
             'status' => $entry->getStatus(),
             'suggestionTemplate' => Craft::$app->getView()->renderTemplate('webtexttool/directives/wtt-suggestion'),
+            'suggestionInfo' => Craft::$app->getView()->renderTemplate('webtexttool/directives/wtt-suggestion-info'),
             'contentQualityTemplate' => Craft::$app->getView()->renderTemplate('webtexttool/directives/wtt-content-quality'),
             'suggestionContentQualityTemplate' => Craft::$app->getView()->renderTemplate('webtexttool/directives/wtt-suggestion-content-quality'),
             'pageSlideOut' => Craft::$app->getView()->renderTemplate('webtexttool/directives/wtt-page-slideout'),
+            'craft_version' => version_compare(Craft::$app->getVersion(), '3.2.0', '>')
         ];
 
         return $data;

@@ -24,7 +24,7 @@ app.controller("appController", ['$scope', '$http', '$q', '$location',
         $scope.promiseMessage = "Please wait...";
         var WttApiBaseUrl = wtt_dashboard.wttApiBaseUrl;
         // $scope.WttAppUrl = WttApiBaseUrl.slice(0, -5) + "/#/";
-        $scope.WttAppUrl = "https://app.webtexttool.com/#/";
+        $scope.WttAppUrl = "https://app.textmetrics.com/#/";
 
         $scope.loginModel = {
             RememberMe: true

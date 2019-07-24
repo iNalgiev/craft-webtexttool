@@ -1,19 +1,21 @@
 {
     "name": "inalgiev/craft-webtexttool",
-    "description": "Webtexttool is the easiest way to make your website content SEO proof, resulting in higher search engine rankings and more traffic to your website. With webtexttool everyone can create great content and make sure it's SEO proof at the same time.",
+    "description": "Textmetrics is the easiest way to make your website content SEO proof, resulting in higher search engine rankings and more traffic to your website. With Textmetrics everyone can create great content and make sure it's SEO proof at the same time.",
     "type": "craft-plugin",
-    "version": "1.0.7",
+    "version": "1.1.0",
     "keywords": [
         "craft",
         "cms",
         "craftcms",
         "craft-plugin",
-        "craft-webtexttool",
+        "craft-textmetrics",
 		"webtexttool",
 		"seo",
 		"realtime",
 		"text-tool",
-        "content"
+        "content",
+        "metrics",
+        "text"
     ],
     "support": {
         "docs": "https://github.com/iNalgiev/craft-webtexttool/blob/master/README.md",
@@ -23,7 +25,7 @@
     "authors": [
         {
             "name": "Israpil Nalgiev",
-            "homepage": "https://webtexttool.com"
+            "homepage": "https://www.textmetrics.com"
         }
     ],
     "require": {
@@ -35,7 +37,7 @@
         }
     },
     "extra": {
-        "name": "Webtexttool",
+        "name": "Textmetrics",
         "handle": "webtexttool",
         "changelogUrl": "https://github.com/iNalgiev/craft-webtexttool/blob/master/CHANGELOG.md",
         "class": "inalgiev\\webtexttool\\Webtexttool"
