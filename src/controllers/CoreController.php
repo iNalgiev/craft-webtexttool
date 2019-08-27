@@ -14,6 +14,7 @@ use craft\web\Controller;
 use craft\helpers\UrlHelper;
 use inalgiev\webtexttool\Webtexttool;
 use inalgiev\webtexttool\models\CoreModel;
+use yii\web\BadRequestHttpException;
 use yii\web\Response;
 use yii\base\Exception;
 use yii\web\ServerErrorHttpException;
@@ -25,8 +26,8 @@ use yii\web\ServerErrorHttpException;
 class CoreController extends Controller
 {
     /**
-     * @return \yii\web\Response
-     * @throws \yii\web\BadRequestHttpException
+     * @return Response
+     * @throws BadRequestHttpException
      * @throws Exception
      */
     public function actionGetUrlWithToken()
@@ -61,9 +62,10 @@ class CoreController extends Controller
     }
 
     /**
-     * @return \yii\web\Response
-     * @throws \yii\web\BadRequestHttpException
-     * @throws Exception
+     * @return Response
+     * @throws ServerErrorHttpException if the preview token could not be created
+     * @throws \yii\web\ForbiddenHttpException
+     * @throws BadRequestHttpException
      */
     public function actionGetPreviewToken()
     {
@@ -97,17 +99,16 @@ class CoreController extends Controller
         $token = Craft::$app->getTokens()->createToken($route, null, $expiryDate);
 
         if (!$token) {
-            throw new ServerErrorHttpException(Craft::t('app', 'Could not create a preview token.'));
+            throw new ServerErrorHttpException(Craft::t('textmetrics', 'Could not create a preview token.'));
         }
 
         return $this->asJson(compact('token'));
     }
 
     /**
-     * @throws \yii\web\BadRequestHttpException
+     * @throws BadRequestHttpException if the request doesn't accept JSON
      */
     public function actionSaveContentQualitySettings(): Response {
-
         $this->requireAcceptsJson();
         $request = Craft::$app->getRequest();
         $params = array('entryId' => $request->getBodyParam('entryId'), 'data' => $request->getBodyParam('data'), 'recordId' => $request->getBodyParam('recordId'));
@@ -129,7 +130,7 @@ class CoreController extends Controller
     }
 
     /**
-     * @throws \yii\web\BadRequestHttpException
+     * @throws BadRequestHttpException if the request doesn't accept JSON
      */
     public function actionSaveContentQualitySuggestions(): Response {
         $this->requireAcceptsJson();
@@ -150,20 +151,19 @@ class CoreController extends Controller
         };
 
         return $this->asJson(['success' => false]);
-
     }
 
     /**
      * Intercept the Entry save data
      *
      * @param $attr array The base class Event.
-     * @throws \yii\web\BadRequestHttpException
+     * @throws \Exception if the request is not a post request
      */
     public function actionSaveRecord($attr)
     {
         $this->requirePostRequest();
         $request = Craft::$app->getRequest();
-        $entryId = $attr->sender->attributes['id'] ? $attr->sender->attributes['id'] : $request->getBodyParam('entryId');
+        $entryId = $attr->attributes['id'] ? $attr->attributes['id'] : $request->getBodyParam('entryId');
 
         if ($entryId) {
             $model = Webtexttool::getInstance()->CoreService->getCoreData($entryId);

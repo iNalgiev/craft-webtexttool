@@ -1,11 +1,20 @@
 # Changelog
+## 1.1.1 - 2019-08-27
+### Changes
+- Changed the way the plugin interacts with the event hook for saving of an element of type entry 
+
+### Fixed
+- Issue with Craft 3.2 creating new (draft) entry
+
 ## 1.1.0 - 2019-07-24
 ### Changes
 - Webtexttool is now Textmetrics (read more about the change [here](https://www.textmetrics.com/webtexttool-is-now-textmetrics/))
     - Plugin name changed
     - Updated UI + logo
+    
 ### Added
 - Migration to database column type to handle size of CQ suggestions
+
 ### Fixed
 - Craft CMS 3.2 live preview 
 

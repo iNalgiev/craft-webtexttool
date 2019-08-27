@@ -15,7 +15,9 @@ namespace inalgiev\webtexttool;
 use Craft;
 use craft\base\Element;
 use craft\base\Plugin;
-use craft\records\Entry;
+use craft\events\ElementEvent;
+use craft\services\Elements;
+use craft\elements\Entry;
 use craft\services\Plugins;
 use craft\events\PluginEvent;
 use craft\web\View;
@@ -28,8 +30,6 @@ use inalgiev\webtexttool\services\CoreService;
 use inalgiev\webtexttool\models\Settings;
 
 use yii\base\Event;
-use yii\base\InvalidRouteException;
-use yii\console\Exception;
 
 /**
  * Craft plugins are very much like little applications in and of themselves. We’ve made
@@ -141,16 +141,34 @@ JS;
             return $view->renderTemplate('webtexttool/core', ['record' => $wttCoreData]);
         });
 
+        //Hook into Elements save
         Event::on(
-            Entry::class,Entry::EVENT_AFTER_INSERT, function(Event $event) {
-                    Craft::$app->runAction('webtexttool/core/save-record', array('attr' => $event));
-            }
-        );
+            \craft\services\Elements::class,
+            \craft\services\Elements::EVENT_AFTER_SAVE_ELEMENT, function(\craft\events\ElementEvent $event) {
+                $element = $event->element;
 
-        Event::on(
-            Entry::class,Entry::EVENT_AFTER_UPDATE, function(Event $event) {
-                Craft::$app->runAction('webtexttool/core/save-record', array('attr' => $event));
+            $isRevision = false;
+            $isDraft = false;
+
+            //check if methods exists (in case Craft version < 3.2)
+            if(method_exists($element, 'getIsRevision')) {
+                $isRevision = $element->getIsRevision();
             }
+
+            if(method_exists($element, 'getIsDraft')) {
+                $isDraft = $element->getIsDraft();
+            }
+
+            if(
+                $element instanceof \craft\elements\Entry //is entry
+                //&& !\craft\helpers\ElementHelper::isDraftOrRevision($event->element) //@since Craft 3.2
+                && !$isRevision // is not revision
+                && !$isDraft // is not draft
+            ) {
+                //fired if is entry and not a revision or draft
+                Craft::$app->runAction('webtexttool/core/save-record', array('attr' => $element));
+            }
+        }
         );
     }
 
@@ -182,12 +200,10 @@ JS;
     }
 
     /**
-     * @throws Exception
-     * @throws InvalidRouteException
      */
     public function handleEntrySave()
     {
-        Craft::$app->runAction('webtexttool/core/save-record');
+        //Craft::$app->runAction('webtexttool/core/save-record');
     }
 
     /**
